@@ -33,7 +33,7 @@ class LanguagePack::Ruby < LanguagePack::Base
       "GEM_PATH" => slug_vendor_base,
     }
 
-    ruby_version_jruby? ? vars.merge("JAVA_OPTS" => default_java_opts) : vars
+    ruby_version_jruby? ? vars.merge("JAVA_OPTS" => default_java_opts, "JRUBY_OPTS" => default_jruby_opts) : vars
   end
 
   def default_process_types
@@ -138,6 +138,12 @@ private
   # return [String] string of JAVA_OPTS
   def default_java_opts
     "-Xmx384m -Xss512k -XX:+UseCompressedOops -Dfile.encoding=UTF-8"
+  end
+
+  # default JRUBY_OPTS
+  # return [String] string of JRUBY_OPTS
+  def default_jruby_opts
+    "--1.9" # TODO: Make this configurable.
   end
 
   # list the available valid ruby versions
