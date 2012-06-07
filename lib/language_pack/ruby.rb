@@ -100,7 +100,11 @@ private
     elsif @ruby_version == "No ruby version specified"
       @ruby_version = nil
     else
-      @ruby_version = @ruby_version.sub('(', '').sub(')', '').split.join('-')
+      matches = @ruby_version.match(/^(\S+\s\S+)(?:\s\((.*)\))?$/)
+      ruby_version = matches[1]
+      ruby_engine = matches[2]
+
+      @ruby_version = (ruby_engine || ruby_version).split.join('-')
       @ruby_version_env_var = false
     end
 
