@@ -143,7 +143,7 @@ private
   # default JRUBY_OPTS
   # return [String] string of JRUBY_OPTS
   def default_jruby_opts
-    "--1.9 -ropenssl" # TODO: Make this configurable.
+    "-ropenssl --1.9" # TODO: Make this configurable.
   end
 
   # list the available valid ruby versions
