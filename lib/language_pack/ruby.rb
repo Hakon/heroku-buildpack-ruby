@@ -46,7 +46,6 @@ class LanguagePack::Ruby < LanguagePack::Base
   def compile
     Dir.chdir(build_path)
     install_ruby
-    install_additional_gems
     setup_language_pack_environment
     allow_git do
       install_language_pack_gems
@@ -223,12 +222,6 @@ ERROR
     true
   end
 
-  def install_additional_gems
-    log("aditional_gems", "Installing aditional gems") do
-      run("gem install jruby-openssl") if(ruby_version_jruby?)
-    end
-  end
-
   # find the ruby install path for its binstubs during build
   # @return [String] resulting path or empty string if ruby is not vendored
   def ruby_install_binstub_path
@@ -329,6 +322,8 @@ ERROR
 
       version = run("env RUBYOPT=\"#{syck_hack}\" bundle version").strip
       topic("Installing dependencies using #{version}")
+      
+      run("gem install jruby-openssl") if(ruby_version_jruby?)
 
       bundler_output = ""
       Dir.mktmpdir("libyaml-") do |tmpdir|
