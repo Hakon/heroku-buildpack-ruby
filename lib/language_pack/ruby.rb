@@ -46,7 +46,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   def compile
     Dir.chdir(build_path)
     install_ruby
-    install_required_gems
+    install_additional_gems
     setup_language_pack_environment
     allow_git do
       install_language_pack_gems
@@ -223,7 +223,7 @@ ERROR
     true
   end
 
-  def install_aditional_gems
+  def install_additional_gems
     log("aditional_gems", "Installing aditional gems") do
       run("gem install jruby-openssl") if(ruby_version_jruby?)
     end
