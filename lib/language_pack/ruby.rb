@@ -322,11 +322,11 @@ ERROR
 
       version = run("env RUBYOPT=\"#{syck_hack}\" bundle version").strip
       topic("Installing dependencies using #{version}")
-      
+
       if(ruby_version_jruby?)
-        install_jruby_openssl_cmd = "gem install jruby-openssl"
+        install_jruby_openssl_cmd = "gem install jruby-openssl 2>&1"
         puts "Running: #{install_jruby_openssl_cmd}"
-        run(install_jruby_openssl_cmd)
+        pipe(install_jruby_openssl_cmd)
       end
 
       bundler_output = ""
