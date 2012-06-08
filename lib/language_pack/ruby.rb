@@ -327,6 +327,7 @@ ERROR
         install_jruby_openssl_cmd = "gem install jruby-openssl 2>&1"
         puts "Running: #{install_jruby_openssl_cmd}"
         pipe(install_jruby_openssl_cmd)
+        bundle_command = "jruby -r openssl -S #{bundle_command}" # This is a bug in bundler where it requires openssl on --deployment. Working around it.
       end
 
       bundler_output = ""
