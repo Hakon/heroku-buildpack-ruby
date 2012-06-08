@@ -323,7 +323,11 @@ ERROR
       version = run("env RUBYOPT=\"#{syck_hack}\" bundle version").strip
       topic("Installing dependencies using #{version}")
       
-      run("gem install jruby-openssl") if(ruby_version_jruby?)
+      if(ruby_version_jruby?)
+        install_jruby_openssl_cmd = "gem install jruby-openssl"
+        puts "Running: #{install_jruby_openssl_cmd}"
+        run(install_jruby_openssl_cmd)
+      end
 
       bundler_output = ""
       Dir.mktmpdir("libyaml-") do |tmpdir|
