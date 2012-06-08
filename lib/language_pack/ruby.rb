@@ -143,7 +143,7 @@ private
   # default JRUBY_OPTS
   # return [String] string of JRUBY_OPTS
   def default_jruby_opts
-    "--1.9" # TODO: Make this configurable.
+    "--1.9 -ropenssl" # TODO: Make this configurable.
   end
 
   # list the available valid ruby versions
@@ -327,9 +327,6 @@ ERROR
         install_jruby_openssl_cmd = "gem install jruby-openssl 2>&1"
         puts "Running: #{install_jruby_openssl_cmd}"
         pipe(install_jruby_openssl_cmd)
-        ruby_extra = "jruby -r openssl -S" # This is a bug in bundler where it requires openssl on --deployment. Working around it.
-      else
-        ruby_extra = ""
       end
 
       bundler_output = ""
@@ -345,7 +342,7 @@ ERROR
         # codon since it uses bundler.
         env_vars       = "env BUNDLE_GEMFILE=#{pwd}/Gemfile BUNDLE_CONFIG=#{pwd}/.bundle/config CPATH=#{yaml_include}:$CPATH CPPATH=#{yaml_include}:$CPPATH LIBRARY_PATH=#{yaml_lib}:$LIBRARY_PATH RUBYOPT=\"#{syck_hack}\""
         puts "Running: #{bundle_command}"
-        bundler_output << pipe("#{ruby_extra} #{env_vars} #{bundle_command} --no-clean 2>&1")
+        bundler_output << pipe("#{env_vars} #{bundle_command} --no-clean 2>&1")
 
       end
 
