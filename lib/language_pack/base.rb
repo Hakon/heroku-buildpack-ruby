@@ -4,6 +4,7 @@ require "yaml"
 require "digest/sha1"
 
 Encoding.default_external = Encoding::UTF_8 if defined?(Encoding)
+$VERBOSE = nil
 
 # abstract class that all the Ruby based Language Packs inherit from
 class LanguagePack::Base
